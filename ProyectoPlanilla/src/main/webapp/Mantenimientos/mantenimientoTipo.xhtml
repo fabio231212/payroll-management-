@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+           <ui:define name="title">
+            <h:outputText value="Mantenimiento Tipos de Usuario"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        <h:form>
+
+            <div class="container">
+
+
+                <div class="row justify-content-around">   
+
+                    <div class="col-md-3"> 
+                        <h:outputText value="Número de Identificación:" class="outputText"></h:outputText>                        
+                        <h:inputText value="#{BeanTipoU.id}" class="form-control" id="inputID2"></h:inputText>
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <h:outputText value="Descripción:" class="outputText"></h:outputText>                        
+                        <h:inputText value="#{BeanTipoU.descripcion}" class="form-control" id="inputName"></h:inputText>
+
+                    </div>
+
+                </div> 
+                
+                <div class="row justify-content-around mt-5 mb-5">
+                    <h:commandButton id="btn2" class="btn btn-success col-md-2" value="Registrar" actionListener="#{BeanTipoU.registrarOActualizarTipo()}"></h:commandButton>
+
+                    <h:commandButton id="btn3" class="btn btn-danger col-md-2" value="Cancelar" action="#{BeanTipoU.limpiar()}"></h:commandButton>
+                </div>
+                 
+
+
+
+
+                <h:dataTable value="#{BeanTipoU.listaTipos}" var="t" class="table">
+                    <h:column>  
+                        <f:facet name="header">Identificación</f:facet>  
+                        <h:outputText value="#{t.id}"/>  
+                    </h:column>
+                    <h:column>  
+                        <f:facet name="header">Tipo Identificación</f:facet>  
+                        <h:outputText value="#{t.descripcion}"/>  
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Editar" />
+                        </f:facet>
+                        <h:commandLink value="Editar" action="#{BeanTipoU.ObtenerTipo(t.id)}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Eliminar" />
+                        </f:facet>
+                        <h:commandLink value="Eliminar" actionListener="#{BeanTipoU.borrarTipo(t.id)}" />
+                    </h:column>
+                </h:dataTable>
+
+            </div>
+              <h:outputText style="color:red" class="col-3 text-center mb-5" value="#{BeanEmpleado.mensaje}"></h:outputText>
+        </h:form>
+   </ui:define>
+        </ui:composition>
+</html>

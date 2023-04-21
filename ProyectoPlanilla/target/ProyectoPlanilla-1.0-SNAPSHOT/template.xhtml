@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/XHtml.xhtml to edit this template
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+
+    </h:head>
+
+    <body class="sb-nav-fixed" onload="validarTipoUsuario()">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="#">Planillas</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fa-duotone fa-crow" style="--fa-primary-color: dodgerblue; --fa-secondary-color: gold;" ></i></button>
+
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <h:link class="dropdown-item" outcome="/Procesos/CambioClave" value="Cambiar Clave"/> 
+                         <li><hr class="dropdown-divider" /></li>
+                        <h:link class="dropdown-item" outcome="/Login/iniciarSesion" value="Cerrar Sesión"/> 
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Principal</div>
+
+                            <h:link class="nav-link" outcome="/Procesos/Planilla" value="Planilla" id="planillas"/>  
+
+                            <h:link class="nav-link" outcome="/Procesos/PlanillaDestajo" value="Planilla Destajo" id="planillaDestajo"/>  
+
+                            <div class="sb-sidenav-menu-heading">Mantenimiento</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                Mantenimientos
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+
+                                    <h:link id="Man1" class="nav-link collapsed" outcome="/Mantenimientos/mantenimientoUsuario" value="Usuarios"/> 
+                                    <h:link id="Man2" class="nav-link collapsed" outcome="/Mantenimientos/mantenimientoTipo" value="Tipo de Usuarios"/> 
+                                    <h:link id="Man3" class="nav-link collapsed" outcome="/Mantenimientos/mantenimientoEmpleado" value="Empleados"/> 
+                                    <h:link id="Man4" class="nav-link collapsed" outcome="/Mantenimientos/mantenimientoDeduccion" value="Deducción"/> 
+
+                                </nav>
+                            </div>
+
+                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                        Authentication
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="login.html">Login</a>
+                                            <a class="nav-link" href="register.html">Register</a>
+                                            <a class="nav-link" href="password.html">Forgot Password</a>
+                                        </nav>
+                                    </div>
+                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                        Error
+                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                    </a>
+                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                                        <nav class="sb-sidenav-menu-nested nav">
+                                            <a class="nav-link" href="401.html">401 Page</a>
+                                            <a class="nav-link" href="404.html">404 Page</a>
+                                            <a class="nav-link" href="500.html">500 Page</a>
+                                        </nav>
+                                    </div>
+                                </nav>
+                            </div>
+                          <div class="sb-sidenav-menu-heading">Reportes</div>
+                            <a id="Reportes" class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReps" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"  id="Rep2"><i class="fas fa-columns"></i></div>
+                                Reportes
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseReps" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+
+                                    <h:link id="re" class="nav-link collapsed" outcome="/Reportes/ReporteEmpleados" value="Reporte Empleados"/> 
+                                    <h:link id="rc" class="nav-link collapsed" outcome="/Reportes/ReporteCategoriasP" value="Reporte Categoría"/> 
+                                    <h:link id="rdp" class="nav-link collapsed" outcome="/Reportes/ReportePlanilla" value="Reporte Planilla"/> 
+
+
+
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Conectado como:</div>
+                        <h:outputLabel value="#{BeanUsuario.consultarSesion().nombre}"></h:outputLabel>
+                        <br></br>
+                        <h:outputLabel value="#{BeanUsuario.nombreTipoUsuario(BeanUsuario.consultarSesion().idTipoUsuario)}" ></h:outputLabel>
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container px-4">
+
+
+
+
+
+                        <ui:insert name="title">Default Title</ui:insert>
+
+
+                        <ui:insert name="body">Default Body</ui:insert>
+
+
+
+
+                    </div>
+
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright; Planillas Cevaz</div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <h:outputScript library="js" name="utils.js"> </h:outputScript>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="resources/js/datatables-simple-demo.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="resources/assets/demo/chart-area-demo.js"></script>
+        <script src="resources/assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <h:outputScript library="js" name="scripts.js"> </h:outputScript>
+        <h:outputScript library="js" name="resources/js/datatables-simple-demo.js"> </h:outputScript>
+    </body>
+</html>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Planilla"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        
+                <h:form>
+
+                    <div class="container">
+                        <div class="row justify-content-center">   
+
+                            <div class="col-md-3">
+                                <h:outputText value="Id:" class="outputText"></h:outputText>                        
+                                <h:inputText value="#{BeanPlanilla.id}" class="form-control" id="inputId"></h:inputText>
+                            </div>        
+
+                            <div class="col-md-3">
+                                <h:outputText value="Tipo Planilla: " class="outputText"></h:outputText>
+                                <h:selectOneMenu label="tipoP" onchange="submit()"  value="#{BeanPlanilla.idTipo}" id="idTipo" class="form-select">
+                                    <f:selectItems value="#{BeanPlanilla.listaTipoP}"></f:selectItems> 
+                                </h:selectOneMenu>        
+                            </div>
+
+                            <div class="col-md-3">
+                                <h:outputText value="Turno: " class="outputText"></h:outputText>
+                                <h:selectOneMenu label="turno" onchange="submit()"  value="#{BeanPlanilla.idTurno}" id="idEstado" class="form-select">
+                                    <f:selectItems value="#{BeanPlanilla.listaTurno}"></f:selectItems> 
+                                </h:selectOneMenu>        
+                            </div>
+                            
+                                </div> 
+                        <div class="row justify-content-center mt-5">  
+                            <div class="col-md-3">
+
+                                <h:outputText value="Pago Inicio:" class="outputText"></h:outputText>                        
+                                <p:datePicker value="#{BeanPlanilla.pInicio}" ></p:datePicker>
+
+                            </div>
+
+                            <div class="col-md-3">
+                                <h:outputText value="Pago Final:" class="outputText"></h:outputText>                        
+                                <p:datePicker value="#{BeanPlanilla.pFinal}" ></p:datePicker>
+                            </div>
+                                </div> 
+
+
+                    
+
+
+
+                        <div class="row justify-content-around mt-5 mb-5">
+                            <h:commandButton id="btn2" class="btn btn-success col-md-2" value="Aceptar" action="#{BeanPlanilla.Insertar()}"></h:commandButton>
+
+                            <h:commandButton id="btn3" class="btn btn-danger col-md-2" value="Cancelar" action="#{BeanPlanilla.limpiar()}"></h:commandButton>
+                        </div>
+
+
+
+
+
+                        <h:dataTable value="#{BeanPlanilla.getListaEmpleados(BeanPlanilla.idTipo)}" var="u" class="table">
+                            <h:column>  
+                                <f:facet name="header">Identificación</f:facet>  
+                                <h:outputText value="#{u.id}"/>  
+                            </h:column>
+                            <h:column>  
+                                <f:facet name="header">Nombre</f:facet>  
+                                <h:outputText value="#{u.nombre}"/>  
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Apellidos</f:facet>  
+                                <h:outputText value="#{u.apellidos}"/>  
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Salario</f:facet>  
+                                <h:outputText value="#{u.salarioBruto}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Horas Ordinarias</f:facet>  
+                                <h:outputText value="#{u.horaOrdinarias}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Activo</f:facet>  
+                                <h:outputText value="#{u.activo}"/>
+                            </h:column>  
+
+                        </h:dataTable>
+
+                    </div>
+                    <h:outputText style="color:red" class="col-3 text-center mb-5" value="#{BeanPlanilla.mensaje}"></h:outputText>
+                </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+</html>
+

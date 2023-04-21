@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Mantenimiento Usuarios"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <h:form>
+
+                <div class="container">
+
+                    <div class="row justify-content-center">   
+
+                        <div class="col-md-3"> 
+                            <h:outputText value="Número de Identificación:" class="outputText"></h:outputText>                        
+                            <h:inputText value="#{BeanUsuario.id}" class="form-control" id="inputID2"></h:inputText>
+                        </div>
+
+                        <h:messages errorStyle="color: red" infoStyle="color: green" globalOnly="true"/>
+
+
+                        <div class="col-md-3">
+
+                            <h:outputText value="Nombre:" class="outputText"></h:outputText>                        
+                            <h:inputText value="#{BeanUsuario.nombre}" class="form-control" id="inputName"></h:inputText>
+
+                        </div>
+
+                        <div class="col-md-3">
+                            <h:outputText value="Apellidos:" class="outputText"></h:outputText>                        
+                            <h:inputText value="#{BeanUsuario.apellidos}" class="form-control" id="inputLastName1"></h:inputText>
+
+                        </div>
+                            </div> 
+                     <div class="row justify-content-center">  
+
+                        <div class="col-md-3">
+                            <h:outputText value="Clave " class="outputText"></h:outputText>                        
+                            <h:inputText value="#{BeanUsuario.clave}" class="form-control" id="inputLastName2"></h:inputText>
+                        </div>
+
+                        <div class="col-md-3">
+                            <h:outputText value="Tipo Usuario: " class="outputText"></h:outputText>
+                            <h:selectOneMenu label="tipoU" onchange="submit()" value="#{BeanUsuario.idTipoUsuario}" id="idTipoUsu" class="form-select">
+                                <f:selectItems value="#{BeanUsuario.listaTipoU}"></f:selectItems> 
+                            </h:selectOneMenu>        
+                        </div>
+
+                        <div class="col-md-3">
+                            <h:outputText value="Estado: " class="outputText"></h:outputText>
+                            <h:selectOneMenu label="estado" onchange="submit()"  value="#{BeanUsuario.activo}" id="idEstado" class="form-select">
+                                <f:selectItems value="#{BeanUtiles.listaA}"></f:selectItems> 
+                            </h:selectOneMenu>        
+                        </div>
+                             </div> 
+                    </div> 
+
+                    <div class="row justify-content-around mt-5 mb-5">
+                        <h:commandButton id="btn2" class="btn btn-success col-md-2" value="Registrarse" actionListener="#{BeanUsuario.registrarOActualizarUsuario()}"></h:commandButton>
+
+                        <h:commandButton id="btn3" class="btn btn-danger col-md-2" value="Cancelar" action="#{BeanUsuario.limpiar()}"></h:commandButton>
+                    </div>
+
+
+
+
+
+                    <h:dataTable value="#{BeanUsuario.listaUsuarios}" var="u" class="table">
+                        <h:column>  
+                            <f:facet name="header">Identificación</f:facet>  
+                            <h:outputText value="#{u.id}"/>  
+                        </h:column>
+                        <h:column>  
+                            <f:facet name="header">Tipo Identificación</f:facet>  
+                            <h:outputText value="#{u.idTipoUsuario}"/>  
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Nombre</f:facet>  
+                            <h:outputText value="#{u.nombre}"/>  
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Apellidos</f:facet>  
+                            <h:outputText value="#{u.apellidos}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Activo</f:facet>  
+                            <h:outputText value="#{u.activo}"/>
+                        </h:column>  
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Editar" />
+                            </f:facet>
+                            <h:commandLink value="Editar" action="#{BeanUsuario.ObtenerUsuario(u.id)}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Eliminar" />
+                            </f:facet>
+                            <h:commandLink value="Eliminar" actionListener="#{BeanUsuario.borrarUsuario(u.id)}" />
+                        </h:column>
+                    </h:dataTable>
+
+           
+                <h:outputText style="color:red" class="col-3 text-center mb-5" value="#{BeanUsuario.mensaje}"></h:outputText>
+            </h:form>
+           
+        </ui:define>
+    </ui:composition>
+</html>
+

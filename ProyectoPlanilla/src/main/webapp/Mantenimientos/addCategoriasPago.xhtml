@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Mantenimiento Deducción"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:body onload="#{BeanEmpleado.consultarSesion()}"> 
+                <h:form>
+
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-md-3"> 
+                                <h:outputText value="Identificación Empleado:" class="outputText"></h:outputText>                        
+                                <h:inputText value="#{BeanEmpleado.id}" class="form-control" id="idEmpleado" readonly="true"></h:inputText>
+                            </div>
+
+                            <div class="col-md-3">
+                                <h:outputText value="Categoria:" class="outputText"></h:outputText>
+                                <h:selectOneMenu label="categoria" onchange="submit()"  value="#{BeanEmpleadoCategoriasPago.idCategoriasPago}" id="categoria" class="form-select">
+                                    <f:selectItems value="#{BeanCategoriasPago.listaLinkedCategorias}"></f:selectItems> 
+                                </h:selectOneMenu>        
+                            </div>
+
+                            <div class="col-md-3"> 
+                                <h:outputText value="Cantidad de Horas" class="outputText"></h:outputText>                        
+                                <h:inputText value="#{BeanEmpleadoCategoriasPago.cantHoras}" class="form-control" id="cantHoras"></h:inputText>
+                            </div>
+                        </div> 
+
+
+                        <div class="row justify-content-around mt-5 mb-5">
+                            <h:commandButton id="btn2" class="btn btn-success col-md-2" value="Aceptar" action="#{BeanEmpleadoCategoriasPago.RegistrarOActualizarCat(BeanEmpleado.id)}"></h:commandButton>
+
+                            <h:commandButton id="btn3" class="btn btn-danger col-md-2" value="Cancelar" action="#{BeanEmpleadoCategoriasPago.LimpiarDatos()}"></h:commandButton>
+                        </div>
+
+
+                        <h:dataTable value="#{BeanEmpleadoCategoriasPago.lista}" var="d" class="table">
+                            <h:column>  
+                                <f:facet name="header">Categoría</f:facet>  
+                                <h:outputText value="#{d.idCategoriasPago}"/>  
+                            </h:column>
+                            <h:column>  
+                                <f:facet name="header">Empleado</f:facet>  
+                                <h:outputText value="#{d.idEmpleado}"/>  
+                            </h:column>
+                            <h:column>  
+                                <f:facet name="header">Cantidad de horas</f:facet>  
+                                <h:outputText value="#{d.cantHoras}"/>  
+                            </h:column>
+                            <h:column>  
+                                <f:facet name="header">Deducción activa:</f:facet>  
+                                <h:outputText value="#{d.activo}"/>  
+                            </h:column>
+                        </h:dataTable>
+
+                    </div>
+                </h:form>
+                  <h:outputText style="color:red" class="col-3 text-center mb-5" value="#{BeanEmpleado.mensaje}"></h:outputText>
+            </h:body>  
+        </ui:define>
+    </ui:composition>
+</html>

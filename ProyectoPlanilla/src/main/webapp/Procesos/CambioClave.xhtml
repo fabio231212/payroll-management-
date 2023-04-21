@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+           <ui:define name="title">
+           
+        </ui:define>
+        <ui:define name="body">
+            <h:form>
+             <div class="row justify-content-center">   
+
+                    <div class="col-md-3"> 
+                        <h:outputText value="Digite su Clave" class="outputText"></h:outputText>                        
+                        <h:inputText value="#{BeanUsuario.clave}" class="form-control" id="inputID2"></h:inputText>
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <h:outputText value="Confirme su Clave:" class="outputText"></h:outputText>                        
+                        <h:inputText value="#{BeanUsuario.apellidos}" class="form-control" id="inputName"></h:inputText>
+
+                    </div>
+
+                </div> 
+                
+                <div class="row justify-content-around mt-5 mb-5">
+                    <h:commandButton id="btn2" class="btn btn-success col-md-2" value="Aceptar" action="#{BeanUsuario.cambiarClave()}"></h:commandButton>
+
+                    <h:commandButton id="btn3" class="btn btn-danger col-md-2" value="Cancelar" action="#{BeanUsuario.limpiar()}"></h:commandButton>
+                </div>
+                 <h:outputText style="color:red" class="col-3 text-center mb-5" value="#{BeanUsuario.mensaje}"></h:outputText>
+           </h:form>
+   
+   </ui:define>
+        </ui:composition>
+</html>

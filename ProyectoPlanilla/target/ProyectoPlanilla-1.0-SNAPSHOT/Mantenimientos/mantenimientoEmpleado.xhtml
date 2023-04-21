@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Mantenimiento Usuarios"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+
+            <h:form>
+
+                <div class="container">
+                    <div class="row">   
+
+                        <div class="col-md-3"> 
+                            <h:outputText value="Número de Identificación:" class="outputText"></h:outputText>                        
+                            <h:inputText value="#{BeanEmpleado.id}" class="form-control" id="inputId"></h:inputText>
+                        </div>
+
+
+                        <div class="col-md-3">
+
+                            <h:outputText value="Nombre:" class="outputText"></h:outputText>                        
+                            <h:inputText value="#{BeanEmpleado.nombre}" class="form-control" id="inputName"></h:inputText>
+
+                        </div>
+
+                        <div class="col-md-3">
+                            <h:outputText value="Apellidos:" class="outputText"></h:outputText>                        
+                            <h:inputText value="#{BeanEmpleado.apellidos}" class="form-control" id="inputLastName1"></h:inputText>
+
+                        </div>
+
+                        <div class="col-md-3">
+                            <h:outputText value="Horas Ordinarias" class="outputText"></h:outputText>                        
+                            <h:inputText value="#{BeanEmpleado.horaOrdinarias}" class="form-control" id="horas"></h:inputText>
+                        </div>
+                        <div class="col-md-3">
+                            <h:outputText value="Salario por Hora" class="outputText"></h:outputText>                        
+                            <h:inputText value="#{BeanEmpleado.salarioHora}" class="form-control" id="salarioHora"></h:inputText>
+                        </div>
+                        <div class="col-md-3">
+                            <h:outputText value="Estado: " class="outputText"></h:outputText>
+                            <h:selectOneMenu label="estado" onchange="submit()"  value="#{BeanEmpleado.activo}" id="idEstado" class="form-select">
+                                <f:selectItems value="#{BeanUtiles.listaA}"></f:selectItems> 
+                            </h:selectOneMenu>        
+                        </div>
+                        <div class="col-md-3">
+                            <h:outputText value="Tipo Planilla: " class="outputText"></h:outputText>
+                            <h:selectOneMenu label="tipoP" onchange="submit()"  value="#{BeanEmpleado.idTipoPlanilla}" id="idTipo" class="form-select">
+                                <f:selectItems value="#{BeanEmpleado.listaTipoP}"></f:selectItems> 
+                            </h:selectOneMenu>        
+                        </div>
+
+                    </div> 
+
+
+
+                    <div class="row justify-content-around mt-5 mb-5">
+                        <h:commandButton id="btn2" class="btn btn-success col-md-2" value="Aceptar" action="#{BeanEmpleado.registrarOActualizarEmpleado()}"></h:commandButton>
+
+                        <h:commandButton id="btn3" class="btn btn-danger col-md-2" value="Cancelar" action="#{BeanEmpleado.limpiarDatos()}"></h:commandButton>
+                    </div>
+
+
+
+
+
+                    <h:dataTable value="#{BeanEmpleado.listEmpleado}" var="u" class="table">
+                        <h:column>  
+                            <f:facet name="header">Identificación</f:facet>  
+                            <h:outputText value="#{u.id}"/>  
+                        </h:column>
+                        <h:column>  
+                            <f:facet name="header">Nombre</f:facet>  
+                            <h:outputText value="#{u.nombre}"/>  
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Apellidos</f:facet>  
+                            <h:outputText value="#{u.apellidos}"/>  
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Salario</f:facet>  
+                            <h:outputText value="#{u.salarioBruto}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Salario por Hora</f:facet>  
+                            <h:outputText value="#{u.salarioHora}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Horas Ordinarias</f:facet>  
+                            <h:outputText value="#{u.horaOrdinarias}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Id Planilla</f:facet>  
+                            <h:outputText value="#{u.idTipoPlanilla}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Activo</f:facet>  
+                            <h:outputText value="#{u.activo}"/>
+                        </h:column>  
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Editar" />
+                            </f:facet>
+                            <h:commandLink value="Editar" action="#{BeanEmpleado.ObtenerEmpleado(u.id)}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Eliminar" />
+                            </f:facet>
+                            <h:commandLink value="Eliminar" action="#{BeanEmpleado.borrarEmpleado(u.id)}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Añadir Deducción" />
+                            </f:facet>
+                            <h:commandLink value="Añadir" action="#{BeanEmpleado.crearSesion(u.id,'deduccion')}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Añadir Categorias Pago" />
+                            </f:facet>
+                            <h:commandLink value="Añadir" action="#{BeanEmpleado.crearSesion(u.id,'categoria')}" />
+                        </h:column>
+                    </h:dataTable>
+                </div>
+                
+                <h:outputText style="color:red" class="col-3 text-center mb-5" value="#{BeanEmpleado.mensaje}"></h:outputText>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>
+

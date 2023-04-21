@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+           <ui:define name="title">
+            <h:outputText value="Mantenimiento Deducción"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+        <h:form>
+
+            <div class="container">
+
+
+                <div class="row justify-content-center">   
+
+                    <div class="col-md-3"> 
+                        <h:outputText value="Id" class="outputText"></h:outputText>                        
+                        <h:inputText value="#{BeanDeduccion.id}" class="form-control" id="idDed"></h:inputText>
+                    </div>
+
+
+                    <div class="col-md-3">
+
+                        <h:outputText value="Descripción:" class="outputText"></h:outputText>                        
+                        <h:inputText value="#{BeanDeduccion.descripcion}" class="form-control" id="decDed"></h:inputText>
+
+                    </div>
+                    
+                                       
+                    
+                        <div class="col-md-3">
+                            <h:outputText value="Proceso: " class="outputText"></h:outputText>
+                            <h:selectOneMenu label="proceso" onchange="submit()"  value="#{BeanDeduccion.proceso}" id="idProceso" class="form-select">
+                                <f:selectItems value="#{BeanUtiles.listaProceso}"></f:selectItems> 
+                            </h:selectOneMenu>        
+                        </div>
+
+                </div> 
+                
+                <div class="row justify-content-around mt-5 mb-5">
+                    <h:commandButton id="btn2" class="btn btn-success col-md-2" value="Registrar" actionListener="#{BeanDeduccion.registrarOActualizarDeduccion()}"></h:commandButton>
+
+                    <h:commandButton id="btn3" class="btn btn-danger col-md-2" value="Cancelar" action="#{BeanDeduccion.limpiar()}"></h:commandButton>
+                </div>
+                 
+
+
+
+
+                <h:dataTable value="#{BeanDeduccion.listaDeduccion}" var="d" class="table">
+                    <h:column>  
+                        <f:facet name="header">Identificación</f:facet>  
+                        <h:outputText value="#{d.id}"/>  
+                    </h:column>
+                    <h:column>  
+                        <f:facet name="header">Tipo Identificación</f:facet>  
+                        <h:outputText value="#{d.descripcion}"/>  
+                    </h:column>
+                            <h:column>  
+                        <f:facet name="header">Proceso</f:facet>  
+                        <h:outputText value="#{d.proceso}"/>  
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Editar" />
+                        </f:facet>
+                        <h:commandLink value="Editar" action="#{BeanDeduccion.ObtenerDeduccion(d.id)}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Eliminar" />
+                        </f:facet>
+                        <h:commandLink value="Eliminar" actionListener="#{BeanDeduccion.borrarDeduccion(d.id)}" />
+                    </h:column>
+                    
+                </h:dataTable>
+
+            </div>
+              <h:outputText style="color:red" class="col-3 text-center mb-5" value="#{BeanEmpleado.mensaje}"></h:outputText>
+        </h:form>
+   </ui:define>
+        </ui:composition>
+</html>
